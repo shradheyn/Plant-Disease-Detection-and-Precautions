@@ -1,7 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for
 import numpy as np
-import pandas as pd
-import sklearn
 import pickle
 import requests
 import io
@@ -10,7 +8,6 @@ from torchvision import transforms
 from PIL import Image
 from utils.disease import disease_dic
 from utils.model import ResNet9
-import os
 
 # Define disease classes
 disease_classes = [
@@ -74,10 +71,7 @@ model_pickle_path = 'model.pkl'
 disease_model = load_model_from_pickle(model_pickle_path)
 disease_model.eval()
 
-# Define the upload folder
-UPLOAD_FOLDER = 'static'
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def predict_image(img, model=disease_model):
     """
@@ -103,12 +97,12 @@ def predict_image(img, model=disease_model):
 
 @app.route('/')
 def home():
-    title = 'Plant Disease Detection using Machine Learning'
+    title = 'AGRINURTURE detect the disease'
     return render_template('disease.html', title=title)
 
 @app.route('/disease-predict', methods=['GET', 'POST'])
 def disease_prediction():
-    title = 'Plant Disease Detection'
+    title = 'Agri-nurture Disease Detection'
 
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -118,7 +112,6 @@ def disease_prediction():
             return render_template('disease.html', title=title)
         try:
             img = file.read()
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'uploaded_image.jpg'))
             prediction = predict_image(img)
 
             # Retrieve the details for the detected disease
@@ -143,4 +136,4 @@ def disease_prediction():
     return render_template('disease.html', title=title)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
