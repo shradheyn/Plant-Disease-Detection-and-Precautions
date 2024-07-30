@@ -134,6 +134,3 @@ def disease_prediction():
         except Exception as e:
             return str(e)  # To see any exceptions that occur
     return render_template('disease.html', title=title)
-
-if __name__ == "__main__":
-    app.run(debug=False)
