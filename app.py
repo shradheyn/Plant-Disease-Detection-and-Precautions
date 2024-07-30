@@ -103,12 +103,12 @@ def predict_image(img, model=disease_model):
 
 @app.route('/')
 def home():
-    title = 'AGRINURTURE detect the disease'
+    title = 'Plant Disease Detection using Machine Learning'
     return render_template('disease.html', title=title)
 
 @app.route('/disease-predict', methods=['GET', 'POST'])
 def disease_prediction():
-    title = 'Agri-nurture Disease Detection'
+    title = 'Plant Disease Detection'
 
     if request.method == 'POST':
         if 'file' not in request.files:
