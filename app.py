@@ -54,10 +54,24 @@ disease_classes = [
     'Tomato___healthy'
 ]
 
+# Define the model architecture
+def load_model_from_pickle(pickle_path):
+    """
+    Load the model from a pickle file.
+    :params: pickle_path (str)
+    :return: model
+    """
+    with open(pickle_path, 'rb') as f:
+        # Load the model architecture
+        model = ResNet9(3, len(disease_classes))
+        # Load the model state dictionary
+        state_dict = pickle.load(f)
+        model.load_state_dict(state_dict)
+    return model
+
 # Load the model
-disease_model_path = 'plant-disease-model.pth'
-disease_model = ResNet9(3, len(disease_classes))
-disease_model.load_state_dict(torch.load(disease_model_path, map_location=torch.device('cpu')))
+model_pickle_path = 'model.pkl'
+disease_model = load_model_from_pickle(model_pickle_path)
 disease_model.eval()
 
 # Define the upload folder
