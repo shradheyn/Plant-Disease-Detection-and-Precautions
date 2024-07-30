@@ -55,7 +55,7 @@ disease_classes = [
 ]
 
 # Load the model
-disease_model_path = 'models/plant-disease-model.pth'
+disease_model_path = 'plant-disease-model.pth'
 disease_model = ResNet9(3, len(disease_classes))
 disease_model.load_state_dict(torch.load(disease_model_path, map_location=torch.device('cpu')))
 disease_model.eval()
