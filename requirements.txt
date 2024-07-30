@@ -12,3 +12,5 @@ markupsafe
 gunicorn
 scipy
 matplotlib
+Werkzeug
+
